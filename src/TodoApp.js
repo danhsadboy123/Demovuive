@@ -1,32 +1,27 @@
-import React, { useState } from 'react';
-
+import React from "react";
+import { useState } from "react";
 function TodoApp() {
-  const [task, setTask] = useState('');
-  const [tasks, setTasks] = useState([]);
-  const [idCounter, setIdCounter] = useState(1);
-
-  const handleAddTask = () => {
-    if (task !== '') {
-      setTasks([...tasks, { id: idCounter, task: task }]);
-      setIdCounter(idCounter + 1);
-      setTask('');
+  const [task, setTask] = useState("");
+  const [taskList, setTaskList] = useState([]);
+  const [id, setId] = useState(0);
+  const addTask = () => {
+    if (task !== "") {
+      setId(id + 1);
+      const newtasklist = [...taskList, { id: id, task: task }];
+      setTaskList(newtasklist);
+      console.log(newtasklist)
+      setTask("");
     }
-  };
-
+  }
   return (
     <div>
       <h1>Todo App</h1>
       <div>
-        <input
-          type="text"
-          value={task}
-          onChange={(e) => setTask(e.target.value)}
-          placeholder="Add a new task"
-        />
-        <button onClick={handleAddTask}>Add</button>
+        <input value={task} type="text" placeholder="Add Todo" onChange={(e) => setTask(e.target.value)} />
+        <button onClick={addTask}>Add</button>
       </div>
       <div className="task-list">
-        <table>
+        <table >
           <thead>
             <tr>
               <th>ID</th>
@@ -34,17 +29,19 @@ function TodoApp() {
             </tr>
           </thead>
           <tbody>
-            {tasks.map((taskItem) => (
-              <tr key={taskItem.id}>
-                <td>{taskItem.id}</td>
-                <td>{taskItem.task}</td>
+
+            {taskList.map((tsask) => (
+
+              <tr key={tsask.id}>
+                <td>{tsask.id}</td>
+                <td>{tsask.task}</td>
               </tr>
             ))}
+
           </tbody>
         </table>
       </div>
     </div>
   );
 }
-
 export default TodoApp;
