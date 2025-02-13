@@ -13,6 +13,10 @@ function TodoApp() {
       setTask("");
     }
   }
+  const deleteTask = (id) => {
+    const newtasklist = taskList.filter((task) => task.id !== id);
+    setTaskList(newtasklist);
+  }
   return (
     <div>
       <h1>Todo App</h1>
@@ -35,6 +39,7 @@ function TodoApp() {
               <tr key={tsask.id}>
                 <td>{tsask.id}</td>
                 <td>{tsask.task}</td>
+                <td><button onClick={() => deleteTask(tsask.id)}>Delete</button></td>
               </tr>
             ))}
 
